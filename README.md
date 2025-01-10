@@ -190,4 +190,4 @@ Ce webinaire est destiné aux :
 - **Format** : Webinaire en ligne
 
 ## Présentation
-![Téléchargez le document PDF détaillé](./docs/CodecraftChroniclesDDD.pdf)
+[Téléchargez le document PDF détaillé](./docs/CodecraftChroniclesDDD.pdf)
