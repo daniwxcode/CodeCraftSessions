@@ -134,11 +134,5 @@ Ce webinaire est destiné aux :
 - **Date** : Samedi 11 janvier 2025
 - **Heure** : 10h GMT
 - **Durée** : 1 heure
-- **Format** : Webinaire en ligne (lien de connexion envoyé après inscription)
-
-## Inscription
-**Inscrivez-vous dès maintenant** pour réserver votre place : [Lien d'inscription](#)
-
-## Contact
-Pour toute question ou information supplémentaire, n'hésitez pas à nous contacter à l'adresse suivante : [votre-email@example.com]
+- **Format** : Webinaire en ligne
 
