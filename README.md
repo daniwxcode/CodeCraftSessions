@@ -189,3 +189,5 @@ Ce webinaire est destiné aux :
 - **Durée** : 1 heure
 - **Format** : Webinaire en ligne
 
+## Présentation
+![Téléchargez le document PDF détaillé](./docs/CodecraftChroniclesDDD.pdf)
