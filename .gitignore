@@ -6,3 +6,6 @@
 /.vs
 /src/.vs/DDD
 /src/DDD/.vs/DDD/CopilotIndices/17.12.38.29086
+/Application/bin/Debug/net9.0
+/Application/obj
+/Domain/bin/Debug/net9.0
