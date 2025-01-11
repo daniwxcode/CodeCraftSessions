@@ -2,6 +2,7 @@
 
 namespace Domain.Entities;
 
+public record GuestData(int MemberId, int GatheringId);
 public class Guest : Entity
 {
     public int MemberId { get; private set; }
@@ -14,12 +15,17 @@ public class Guest : Entity
         MemberId = memberId;
         GatheringId = gatheringId;
     }
-    internal static Guest Create(int memberId, int gatheringId)
+    internal static Guest Create(GuestData guestData)
     {
-        return new Guest
-        {
-            MemberId = memberId,
-            GatheringId = gatheringId
-        };
+        return guestData;
+    }
+
+    public static implicit operator Guest(GuestData data)
+    {
+        return new Guest(data.MemberId, data.GatheringId);
+    }
+    public static implicit operator GuestData(Guest guest)
+    {
+        return new GuestData(guest.MemberId, guest.GatheringId);
     }
 }

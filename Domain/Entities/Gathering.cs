@@ -1,55 +1,59 @@
-﻿using Domain.ValueObjects;
+﻿using Domain.Primitives;
+using Domain.ValueObjects;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
+namespace Domain.Entities;
 
-namespace Domain.Entities
+
+public record GatheringData(string Host, string Object);
+public class Gathering: AggregateRoot<Gathering,GatheringData>
 {
-    public class Gathering
+    public int Id { get; private set; }
+    public string Host { get; private set; }
+    public string Object { get; private set; }
+    public Capacity Capacity { get; private set; } = Capacity.Default;
+
+    private List<Invitation> _invitations = new();
+    public List<Guest> _guests = new();
+    public IReadOnlyCollection<Invitation> Invitations => _invitations.AsReadOnly();
+    public IReadOnlyCollection<Guest> Guests => _guests.AsReadOnly();
+
+    private Gathering() { }
+
+    private Gathering(string host, string @object)
     {
-        public int Id { get; private set; }
-        public string Host { get; private set; }
-        public string Object { get; private set; }
-        public Capacity Capacity { get; private set; } = Capacity.Default;
-
-        private List<Invitation> _invitations = new();
-        public List<Guest> _guests = new();
-        public IReadOnlyCollection<Invitation> Invitations => _invitations.AsReadOnly();
-        public IReadOnlyCollection<Guest> Guests => _guests.AsReadOnly();
-
-        private Gathering() { }
-
-        private Gathering(string host, string @object)
-        {
-            Host = host;
-            Object = @object;
-        }
-        public static Gathering Create(string host, string @object)
-        {
-            return new Gathering
-            {
-                Host = host,
-                Object = @object
-            };
-        }
-        public void AddInvitation(Member member)
-        {
-            // checkig Invitation already exists and pending
-            var invitation = Invitation.Create(member.Id, Id);
-            _invitations.Add(invitation);
-        }
-        public void ConfirmInvitation(int memberId)
-        {
-            var invitation = _invitations.FirstOrDefault(i => i.MemberID == memberId);
-            if (invitation is null)
-                throw new InvalidOperationException("Invitation not found");
-            invitation.Confirm();
-
-            // todo Implement Guest creation
-        }
+        Host = host;
+        Object = @object;
     }
+   
+    public void AddInvitation(Member member)
+    {
+        // checkig Invitation already exists and pending
+        InvitationData data =new(member.Id,Id);
+        var invitation = Invitation.Create(data);
+        _invitations.Add(invitation);
+    }
+    public void ConfirmInvitation(int memberId)
+    {
+        var invitation = _invitations.FirstOrDefault(i => i.MemberID == memberId);
+        if (invitation is null)
+            throw new InvalidOperationException("Invitation not found");
+        invitation.Confirm();
+
+        // todo Implement Guest creation
+    }
+
+    public override Gathering Create(GatheringData data)
+    {
+        return data;
+    }
+
+    public static implicit operator GatheringData(Gathering gathering)
+    {
+        return new GatheringData(gathering.Host, gathering.Object);
+    }
+    public static implicit operator Gathering(GatheringData data)
+    {
+        return new Gathering(data.Host, data.Object);
+    }
+
 }
