@@ -2,7 +2,7 @@
 
 public abstract class Entity : IEquatable<Entity>
 {
-    protected int Id { get; set; }
+    public int Id { get; set; }
     public bool Equals(Entity? other)
     {
         if (other is null)
